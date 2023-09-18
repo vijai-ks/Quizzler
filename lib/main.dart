@@ -12,6 +12,7 @@ class Quizzler extends StatefulWidget {
 }
 
 class _QuizzlerState extends State<Quizzler> {
+  List<Icon> scoreKeeper = [];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,7 +44,14 @@ class _QuizzlerState extends State<Quizzler> {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        scoreKeeper.add(
+                          Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+                        );
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.green,
                       ),
@@ -61,7 +69,14 @@ class _QuizzlerState extends State<Quizzler> {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        scoreKeeper.add(
+                          Icon(
+                            Icons.check,
+                            color: Colors.red,
+                          ),
+                        );
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.red,
                       ),
@@ -72,6 +87,52 @@ class _QuizzlerState extends State<Quizzler> {
                           fontSize: 20,
                         ),
                       ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Row(
+                    children: [
+                      const Text(
+                        'Answer: ',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
+                      Container(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Row(
+                            children: scoreKeeper,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    child: const Row(
+                      children: [
+                        Text(
+                          'Score: ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            child: Text('10'),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
