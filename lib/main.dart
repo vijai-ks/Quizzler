@@ -44,6 +44,9 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.all(20.0),
                     child: TextButton(
                       onPressed: () {},
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
                       child: const Text(
                         'True',
                         style: TextStyle(
