@@ -42,7 +42,7 @@ class _QuizzlerState extends State<Quizzler> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
                         scoreKeeper.add(
@@ -67,7 +67,7 @@ class _QuizzlerState extends State<Quizzler> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
                         scoreKeeper.add(
@@ -114,7 +114,7 @@ class _QuizzlerState extends State<Quizzler> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                   child: Container(
                     child: const Row(
                       children: [
