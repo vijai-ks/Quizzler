@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'questions.dart';
+import 'quizz_brain.dart';
 
 void main() {
   runApp(const Quizzler());
 }
+
+QuizBrain quizzBrain = new QuizBrain();
 
 class Quizzler extends StatefulWidget {
   const Quizzler({super.key});
@@ -14,12 +16,6 @@ class Quizzler extends StatefulWidget {
 
 class _QuizzlerState extends State<Quizzler> {
   List<Icon> scoreKeeper = [];
-
-  List<Questions> questionBank = [
-    Questions(q: 'Is Cow\'s other name is donkey ?', a: false),
-    Questions(q: 'Madras is Chennai ?', a: true),
-    Questions(q: 'Sun rises in west ?', a: false),
-  ];
 
   int questionNumber = 0;
   @override
@@ -40,7 +36,7 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
-                        questionBank[questionNumber].question,
+                        quizzBrain.getQuestionFromBank(questionNumber),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 24,
@@ -55,7 +51,7 @@ class _QuizzlerState extends State<Quizzler> {
                     child: TextButton(
                       onPressed: () {
                         bool correctAnswer =
-                            questionBank[questionNumber].answer;
+                            quizzBrain.getAnswerFromBank(questionNumber);
                         if (correctAnswer == true) {
                           print('Answer is true');
                         } else {
@@ -84,7 +80,7 @@ class _QuizzlerState extends State<Quizzler> {
                     child: TextButton(
                       onPressed: () {
                         bool correctAnswer =
-                            questionBank[questionNumber].answer;
+                            quizzBrain.getAnswerFromBank(questionNumber);
                         if (correctAnswer == false) {
                           print('Answer is false');
                         } else {
