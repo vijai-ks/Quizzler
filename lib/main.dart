@@ -17,7 +17,6 @@ class Quizzler extends StatefulWidget {
 class _QuizzlerState extends State<Quizzler> {
   List<Icon> scoreKeeper = [];
 
-  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,7 +35,7 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
-                        quizzBrain.getQuestionFromBank(questionNumber),
+                        quizzBrain.getQuestionFromBank(),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 24,
@@ -50,15 +49,14 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
-                        bool correctAnswer =
-                            quizzBrain.getAnswerFromBank(questionNumber);
+                        bool correctAnswer = quizzBrain.getAnswerFromBank();
                         if (correctAnswer == true) {
                           print('Answer is true');
                         } else {
                           print('Answer is wrong');
                         }
                         setState(() {
-                          questionNumber++;
+                          quizzBrain.setQuestionNumber();
                         });
                       },
                       style: TextButton.styleFrom(
@@ -79,15 +77,14 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
-                        bool correctAnswer =
-                            quizzBrain.getAnswerFromBank(questionNumber);
+                        bool correctAnswer = quizzBrain.getAnswerFromBank();
                         if (correctAnswer == false) {
                           print('Answer is false');
                         } else {
                           print('Answer is wrong');
                         }
                         setState(() {
-                          questionNumber++;
+                          quizzBrain.setQuestionNumber();
                         });
                       },
                       style: TextButton.styleFrom(
@@ -126,23 +123,56 @@ class _QuizzlerState extends State<Quizzler> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                  child: Container(
-                    child: const Row(
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Score: ',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
                           ),
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
                           child: CircleAvatar(
                             backgroundColor: Colors.white,
                             child: Text('10'),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        const Text(
+                          'Current Question : ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
+                        ),
+                        Text(
+                          quizzBrain.getQuestionNumber().toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
+                        ),
+                        const Text(
+                          '/',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
+                        ),
+                        Text(
+                          quizzBrain.getTotalNumberOfQuestions().toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
                           ),
                         ),
                       ],

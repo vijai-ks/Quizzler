@@ -1,6 +1,7 @@
 import 'questions.dart';
 
 class QuizBrain {
+  int _questionNumber = 0;
   final List<Question> _questionBank = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
@@ -29,13 +30,29 @@ class QuizBrain {
         true),
   ];
 
-  // Since the question bank values are private we cant access it directly
-  // For that we are creating two functions to return Question and Answer
-  String getQuestionFromBank(int questionNumber) {
-    return _questionBank[questionNumber].question;
+  void setQuestionNumber() {
+    if (_questionNumber < _questionBank.length - 1) {
+      _questionNumber++;
+    } else {
+      _questionNumber = 0;
+    }
   }
 
-  bool getAnswerFromBank(int questionNumber) {
-    return _questionBank[questionNumber].answer;
+  int getQuestionNumber() {
+    return _questionNumber + 1;
+  }
+
+  int getTotalNumberOfQuestions() {
+    return _questionBank.length;
+  }
+
+  // Since the question bank values are private we cant access it directly
+  // For that we are creating two functions to return Question and Answer
+  String getQuestionFromBank() {
+    return _questionBank[_questionNumber].question;
+  }
+
+  bool getAnswerFromBank() {
+    return _questionBank[_questionNumber].answer;
   }
 }
