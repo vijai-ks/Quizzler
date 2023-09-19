@@ -44,18 +44,20 @@ class _QuizzlerState extends State<Quizzler> {
             )
           ],
         ).show();
-        correctAnswers = 0;
-        scoreKeeper.clear();
-        quizzBrain.resetQuestionNumber();
+        correctAnswers = 0; // Reset correct answers to 0
+        scoreKeeper.clear(); // Clears the score list
+        quizzBrain
+            .resetQuestionNumber(); // Method to reset the question number to 0
       } else {
-        bool correctAnswer = quizzBrain.getAnswerFromBank();
+        bool correctAnswer = quizzBrain
+            .getAnswerFromBank(); // Takes the correct answer from the question bank of the specific question
         if (userSelection == correctAnswer) {
           scoreKeeper.add(
             const Icon(
               Icons.check,
               color: Colors.green,
             ),
-          );
+          ); // Add icon to the score list
           correctAnswers++;
         } else {
           scoreKeeper.add(
@@ -65,7 +67,7 @@ class _QuizzlerState extends State<Quizzler> {
             ),
           );
         }
-        quizzBrain.setQuestionNumber();
+        quizzBrain.setQuestionNumber(); // Increment to the next question
       }
     });
   }

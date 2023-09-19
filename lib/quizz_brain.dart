@@ -30,16 +30,19 @@ class QuizBrain {
         true),
   ];
 
+  // To increment the question number to next question
   void setQuestionNumber() {
     if (_questionNumber < _questionBank.length - 1) {
       _questionNumber++;
     }
   }
 
+  // Method to reset the question number to 0
   void resetQuestionNumber() {
     _questionNumber = 0;
   }
 
+  // This method checks if this is the last question and returns true when the condition is true.
   bool isResetQuestions() {
     if (_questionNumber == _questionBank.length - 1) {
       return true;
@@ -47,10 +50,12 @@ class QuizBrain {
     return false;
   }
 
+  // It returns the current question number
   int getQuestionNumber() {
     return _questionNumber + 1;
   }
 
+  // It returns the count of total questions
   int getTotalNumberOfQuestions() {
     return _questionBank.length;
   }
@@ -61,6 +66,7 @@ class QuizBrain {
     return _questionBank[_questionNumber].question;
   }
 
+  // It returns the answer for the current question
   bool getAnswerFromBank() {
     return _questionBank[_questionNumber].answer;
   }
