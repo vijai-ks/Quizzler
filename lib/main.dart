@@ -32,10 +32,14 @@ class _QuizzlerState extends State<Quizzler> {
           buttons: [
             DialogButton(
               onPressed: () => Navigator.pop(context),
+              color: Colors.green,
               width: 120,
               child: const Text(
                 "Restart",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
               ),
             )
           ],
