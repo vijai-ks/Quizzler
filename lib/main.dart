@@ -5,7 +5,7 @@ void main() {
   runApp(const Quizzler());
 }
 
-QuizBrain quizzBrain = new QuizBrain();
+QuizBrain quizzBrain = QuizBrain();
 
 class Quizzler extends StatefulWidget {
   const Quizzler({super.key});
@@ -16,12 +16,47 @@ class Quizzler extends StatefulWidget {
 
 class _QuizzlerState extends State<Quizzler> {
   List<Icon> scoreKeeper = [];
+  int correctAnswers = 0;
+
+  void checkAndUpdateAnswer(bool userSelection) {
+    bool correctAnswer = quizzBrain.getAnswerFromBank();
+    setState(() {
+      if (quizzBrain.getTotalNumberOfQuestions() ==
+          quizzBrain.getQuestionNumber()) {
+        correctAnswers = 0;
+        scoreKeeper.clear();
+      }
+      if (userSelection == correctAnswer) {
+        scoreKeeper.add(
+          const Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+        correctAnswers++;
+      } else {
+        scoreKeeper.add(
+          const Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+      quizzBrain.setQuestionNumber();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey,
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: const Center(
+            child: Text('Quizzler'),
+          ),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -49,15 +84,7 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
-                        bool correctAnswer = quizzBrain.getAnswerFromBank();
-                        if (correctAnswer == true) {
-                          print('Answer is true');
-                        } else {
-                          print('Answer is wrong');
-                        }
-                        setState(() {
-                          quizzBrain.setQuestionNumber();
-                        });
+                        checkAndUpdateAnswer(true);
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -77,15 +104,7 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
-                        bool correctAnswer = quizzBrain.getAnswerFromBank();
-                        if (correctAnswer == false) {
-                          print('Answer is false');
-                        } else {
-                          print('Answer is wrong');
-                        }
-                        setState(() {
-                          quizzBrain.setQuestionNumber();
-                        });
+                        checkAndUpdateAnswer(true);
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.red,
@@ -101,7 +120,7 @@ class _QuizzlerState extends State<Quizzler> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       const Text(
@@ -113,6 +132,8 @@ class _QuizzlerState extends State<Quizzler> {
                       ),
                       Container(
                         color: Colors.white,
+                        width: 300,
+                        height: 25,
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Row(
@@ -137,11 +158,11 @@ class _QuizzlerState extends State<Quizzler> {
                             fontSize: 17,
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
                           child: CircleAvatar(
                             backgroundColor: Colors.white,
-                            child: Text('10'),
+                            child: Text('$correctAnswers'),
                           ),
                         ),
                         const SizedBox(
