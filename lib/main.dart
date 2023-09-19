@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'questions.dart';
 
 void main() {
   runApp(const Quizzler());
@@ -13,13 +14,13 @@ class Quizzler extends StatefulWidget {
 
 class _QuizzlerState extends State<Quizzler> {
   List<Icon> scoreKeeper = [];
-  List<String> questions = [
-    'Is Cow\'s other name is donkey ?',
-    'Madras is Chennai ?',
-    'Sun rises in west ?'
+
+  List<Questions> questionBank = [
+    Questions(q: 'Is Cow\'s other name is donkey ?', a: false),
+    Questions(q: 'Madras is Chennai ?', a: true),
+    Questions(q: 'Sun rises in west ?', a: false),
   ];
 
-  List<bool> answers = [false, true, false];
   int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
-                        questions[questionNumber],
+                        questionBank[questionNumber].question,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 24,
@@ -53,7 +54,8 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
-                        bool correctAnswer = answers[questionNumber];
+                        bool correctAnswer =
+                            questionBank[questionNumber].answer;
                         if (correctAnswer == true) {
                           print('Answer is true');
                         } else {
@@ -81,7 +83,8 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
-                        bool correctAnswer = answers[questionNumber];
+                        bool correctAnswer =
+                            questionBank[questionNumber].answer;
                         if (correctAnswer == false) {
                           print('Answer is false');
                         } else {
