@@ -13,6 +13,14 @@ class Quizzler extends StatefulWidget {
 
 class _QuizzlerState extends State<Quizzler> {
   List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'Is Cow\'s other name is donkey ?',
+    'Madras is Chennai ?',
+    'Sun rises in west ?'
+  ];
+
+  List<bool> answers = [false, true, false];
+  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,15 +33,15 @@ class _QuizzlerState extends State<Quizzler> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Expanded(
+                Expanded(
                   flex: 5,
                   child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
-                        'This is where the question text will go',
+                        questions[questionNumber],
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                         ),
                       ),
@@ -45,12 +53,15 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
-                        scoreKeeper.add(
-                          Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          ),
-                        );
+                        bool correctAnswer = answers[questionNumber];
+                        if (correctAnswer == true) {
+                          print('Answer is true');
+                        } else {
+                          print('Answer is wrong');
+                        }
+                        setState(() {
+                          questionNumber++;
+                        });
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -70,12 +81,15 @@ class _QuizzlerState extends State<Quizzler> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20.0, 10),
                     child: TextButton(
                       onPressed: () {
-                        scoreKeeper.add(
-                          Icon(
-                            Icons.check,
-                            color: Colors.red,
-                          ),
-                        );
+                        bool correctAnswer = answers[questionNumber];
+                        if (correctAnswer == false) {
+                          print('Answer is false');
+                        } else {
+                          print('Answer is wrong');
+                        }
+                        setState(() {
+                          questionNumber++;
+                        });
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.red,
