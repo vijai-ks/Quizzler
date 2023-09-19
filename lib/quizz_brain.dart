@@ -33,9 +33,18 @@ class QuizBrain {
   void setQuestionNumber() {
     if (_questionNumber < _questionBank.length - 1) {
       _questionNumber++;
-    } else {
-      _questionNumber = 0;
     }
+  }
+
+  void resetQuestionNumber() {
+    _questionNumber = 0;
+  }
+
+  bool isResetQuestions() {
+    if (_questionNumber == _questionBank.length - 1) {
+      return true;
+    }
+    return false;
   }
 
   int getQuestionNumber() {

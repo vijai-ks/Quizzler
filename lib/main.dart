@@ -22,10 +22,8 @@ class _QuizzlerState extends State<Quizzler> {
   int correctAnswers = 0;
 
   void checkAndUpdateAnswer(bool userSelection) {
-    bool correctAnswer = quizzBrain.getAnswerFromBank();
     setState(() {
-      if (quizzBrain.getTotalNumberOfQuestions() ==
-          quizzBrain.getQuestionNumber()) {
+      if (quizzBrain.isResetQuestions() == true) {
         Alert(
           context: context,
           type: AlertType.error,
@@ -44,24 +42,27 @@ class _QuizzlerState extends State<Quizzler> {
         ).show();
         correctAnswers = 0;
         scoreKeeper.clear();
-      }
-      if (userSelection == correctAnswer) {
-        scoreKeeper.add(
-          const Icon(
-            Icons.check,
-            color: Colors.green,
-          ),
-        );
-        correctAnswers++;
+        quizzBrain.resetQuestionNumber();
       } else {
-        scoreKeeper.add(
-          const Icon(
-            Icons.close,
-            color: Colors.red,
-          ),
-        );
+        bool correctAnswer = quizzBrain.getAnswerFromBank();
+        if (userSelection == correctAnswer) {
+          scoreKeeper.add(
+            const Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+          );
+          correctAnswers++;
+        } else {
+          scoreKeeper.add(
+            const Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          );
+        }
+        quizzBrain.setQuestionNumber();
       }
-      quizzBrain.setQuestionNumber();
     });
   }
 
